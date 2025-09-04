@@ -41,6 +41,9 @@
     font-size: 3em;
     margin: 0.67em 0;
   }
+  /**
+  This is a SEO change
+  */
   h2 {
     font-size: 2em;
   }
@@ -87,6 +90,13 @@
     background-color: transparent;
   }
   
+  /**
+  This is a SEO change
+  */
+  
+  #header-links {
+    font-size: 2em;
+  }
   /**
    * 1. Remove the bottom border in Chrome 57-
    * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
