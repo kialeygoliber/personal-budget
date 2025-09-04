@@ -86,14 +86,21 @@
    * Remove the gray background on active links in IE 10.
    */
   
+   /**
+  This is a A11y change
+  */
   a {
     background-color: transparent;
+  }
+
+  a:focus {
+    outline: 3px, solid, black;
   }
   
   /**
   This is a SEO change
   */
-  
+
   #header-links {
     font-size: 2em;
   }

@@ -18,23 +18,26 @@
 
 <!-- This is a Semantic HTML Change -->
 <header> 
-    <nav>
-        
+
+    <!-- This is an A11y Change -->
+    <nav aria-label="Main navigation">  
         <ul id="header-links">
             <li><a href="/pb/public/">Home</a></li>
-            <li><a href="/pb/public/about.html">About</a></li>
-            <li><a href="/pb/public/login.html">Login</a></li>
-            <li><a href="https://google.com">Google</a></li>
+            <li><a href="/pb/public/about.html" target="_blank">About</a></li>
+            <li><a href="/pb/public/login.html" target="_blank">Login</a></li>
+            <li><a href="https://google.com" target="_blank" aria-label="Google (opens in a new tab)">Google</a></li>
         </ul>
     </nav>
-</header>
+    </header>
+
 
     <div class="hero">
         <h1>Personal Budget</h1>
         <h2>A personal-budget management app</h2>
     </div>
 
-    <main class="center" id="main">
+    <!-- This is an A11y Change -->
+    <main class="center" id="main" tabindex="-1">
 
         <div class="page-area">
 
@@ -106,7 +109,12 @@
                 <!-- This is a Semantic HTML Change -->
                 <h2>Chart</h2>
                 <p>
-                    <canvas id="myChart" width="400" height="400"></canvas>
+                    <!-- This is an A11y Change -->
+                    <figure>
+                        <canvas id="myChart" width="400" height="400"></canvas>
+                        <figcaption>Visual breakdown of expenses in a chart</figcaption>
+                    </figure>
+                    
                 </p>
             </article>
 
