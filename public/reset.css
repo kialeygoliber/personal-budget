@@ -38,8 +38,11 @@
    */
   
   h1 {
-    font-size: 2em;
+    font-size: 3em;
     margin: 0.67em 0;
+  }
+  h2 {
+    font-size: 2em;
   }
   
   /* Grouping content
@@ -54,6 +57,13 @@
     box-sizing: content-box; /* 1 */
     height: 0; /* 1 */
     overflow: visible; /* 2 */
+  }
+
+  /**
+  This is a SEO change
+  */
+  p {
+    font-size: 1.75em
   }
   
   /**
