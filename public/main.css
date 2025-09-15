@@ -102,6 +102,21 @@ main article {
     margin: 20px;
 }
 
+
+
+.labels text {
+    fill: black;          
+    font-size: 10px;
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+.lines polyline {
+    fill: none;
+    stroke: #ccc;        
+    stroke-width: 1.5px;
+}
+
+
 @media screen and (min-width: 768px) {
     main article {
         margin: 10px;

@@ -1,5 +1,6 @@
 
-{"myBudget": [
+{
+    "myBudget": [
     {
         "title": "Eating Out",
         "budget": 100
@@ -28,4 +29,33 @@
         "title":"Phone Bill",
         "budget":40
     }
-]}
+],
+    "income": [
+    {
+        "title":"ALPH",
+        "amount": 125
+    },
+    {
+        "title":"BETA",
+        "amount": 78
+    },
+    {
+        "title":"GAMM",
+        "amount": 151
+    },
+
+    {
+        "title":"APEX",
+        "amount": 97
+    },
+
+    {
+        "title":"GRVN",
+        "amount": 178
+
+    }
+        
+]
+
+}
+
