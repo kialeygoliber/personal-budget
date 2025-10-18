@@ -15,7 +15,6 @@
 
 <a href="#main" class="skip">Skip to content</a>
 
-
 <!-- This is a Semantic HTML Change -->
 <header> 
 
@@ -29,7 +28,6 @@
         </ul>
     </nav>
     </header>
-
 
     <div class="hero">
         <h1>Personal Budget</h1>
@@ -111,7 +109,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
-
     <script src="http://d3js.org/d3.v3.min.js"></script>
 
 
@@ -121,24 +118,18 @@
         /*============================
         SCRIPT FOR REGULAR FIRST CHART
         ============================*/
+
         var dataSource = {
                 datasets: [
                     {
                         data: [],
-                        backgroundColor: [
-                            '#1E1E24',
-                            '#92140C',
-                            '#FFF8F0',
-                            '#FFCF99',
-                            '#111D4A',
-                            '#63B995',
-                            '#273C2C'
-                        ]
+                        backgroundColor: []
                     }
                 ],
                 labels: []
             };
 
+        
         function createChart() {
             var ctx = document.getElementById('myChart').getContext('2d');
             /*var incomeCtx = document.getElementById('incomeChart').getContext('2d');*/
@@ -152,18 +143,22 @@
         function getBudget() {
             axios.get('/budget')
             .then(function (res) {
-                for (var i = 0; i < res.data.myBudget.length; i++) {
-                    dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
-                    dataSource.labels[i] = res.data.myBudget[i].title;
-                    
-                }
+                const myBudget = res.data.myBudget;
+                const incomeData = res.data.income;
 
+                for (let i = 0; i < myBudget.length; i++) {
+                    dataSource.datasets[0].data[i] = myBudget[i].value;
+                    dataSource.datasets[0].backgroundColor[i] = myBudget[i].color;
+                    dataSource.labels[i] = myBudget[i].title;
+                }
                 createChart();
 
-                var incomeData = res.data.income.map(function(d) {
-                    return { label: d.title, value: d.amount };
-            });
-                drawIncomeChart(incomeData);
+                const incomeChartData = incomeData.map(d => ({
+                    label: d.title,
+                    value: Number(d.amount),
+                    color: d.color
+                }));
+                drawIncomeChart(incomeChartData);
             });
 
             
@@ -176,11 +171,15 @@
             SCRIPT FOR D3 CHART
         ============================*/
 
+        
+
         function drawIncomeChart(data) {
+
             var width = 350,
                 height = 300,
                 radius = Math.min(width, height) / 2;
 
+            d3.select("#incomeChart").html("");
             var svg = d3.select("#incomeChart")
                 .append("svg")
                 .attr("width", width)
@@ -198,12 +197,12 @@
 
             
             var arc = d3.svg.arc()
-                .outerRadius(radius * 0.8)
-                .innerRadius(radius * 0.4);
+                .outerRadius(radius * 0.6)
+                .innerRadius(radius * 0.2);
 
             var outerArc = d3.svg.arc()
-                .innerRadius(radius * 0.85)
-                .outerRadius(radius * 0.85); 
+                .innerRadius(radius * 0.9)
+                .outerRadius(radius * 0.9); 
                 
             
             var key = function(d){ return d.data.label; };
@@ -211,10 +210,16 @@
 
 
             /*COLORS*/
-            var color = d3.scale.ordinal()
-                .domain(data.map(function(d){ return d.label; }))
-                .range(["#92DDB6", "#69B594", "#003E1F", "#C1EBD5", "#006633" ]);
 
+            var color = d3.scale.ordinal()
+                .domain(data.map(d => d.label))
+
+                //.domain(data.map(function(d){ return d.label; }))
+                .range(data.map(d => d.color));
+
+                //.range([, , , ,  ]);
+
+                //NEW CODE 
 
             var slice = svg.select(".slices").selectAll("path.slice")
                 .data(pie(data), key);
@@ -235,6 +240,8 @@
                 });
 
             slice.exit().remove();
+            
+
 
             /*TEXT LABELS*/
 
@@ -303,7 +310,6 @@
 
             polyline.exit().remove();
         }
-
 
     </script>
 
